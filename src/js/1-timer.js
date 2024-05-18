@@ -35,6 +35,7 @@ const options = {
         iziToast.error({
             title: "Error",
             message: "Please choose a date in the future",
+            position: "topCenter",
         });
         startButton.disabled = true;
       } else {
@@ -66,4 +67,15 @@ function startCountdown() {
         const time = convertMs(timeDifference);
         updateTimer(time.days, time.hours, time.minutes, time.seconds);
     }, 1000);
+}
+
+function updateTimer(days, hours, minutes, seconds) {
+    daysElement.textContent = addLeadingZero(days);
+    hoursElement.textContent = addLeadingZero(hours);
+    minutesElement.textContent = addLeadingZero(minutes);
+    secondsElement.textContent = addLeadingZero(seconds);
+}
+
+function addLeadingZero(value) {
+    return String(value).padStart(2, `0`);
 }
