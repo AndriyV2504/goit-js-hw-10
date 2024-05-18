@@ -43,3 +43,27 @@ const options = {
       }
     },
 };
+
+flatpickr("#datetime-picker", options);
+
+startButton.addEventListener("click", () => {
+    startButton.disabled = true;
+    document.querySelector("#datetime-picker").disabled = true;
+    startCountdown();
+});
+
+function startCountdown() {
+    const countdownInterval = setInterval(() => {
+        const now = new Date();
+        const timeDifference = userSelectedDate - now;
+        if (timeDifference <= 0) {
+            clearInterval(countdownInterval);
+            updateTimer(0, 0, 0, 0);
+            document.querySelector("#datetime-picker").disabled = false;
+            return;
+        }
+
+        const time = convertMs(timeDifference);
+        updateTimer(time.days, time.hours, time.minutes, time.seconds);
+    }, 1000);
+}
